@@ -30,7 +30,7 @@ public class CommodityTest {
     }
 
     @BeforeEach
-    public void setup() throws InterruptedException {
+    public void setup() {
         goToPage(driver, wait, MY_DATA);
     }
 
@@ -41,11 +41,12 @@ public class CommodityTest {
 
     @ParameterizedTest
     @CsvSource({"1,1", " 3,3", "5,5"})
-    public void addCommodityFromSelector(int input, int expected) {
+    public void addCommodityFromSelector(int input, int expected) throws InterruptedException {
         goToPage(driver, wait, NEW_INVOICE);
 
         for (int i = 0; i < input; i++) {
             wait.until(e -> driver.findElement(By.id("commoditySelect"))).click();
+            Thread.sleep(100);
             driver.findElement(By.xpath("//*[@id=\"commoditySelect\"]/div/div[1]/div[1]")).click();
             driver.findElement(By.id("addFromSelectOption")).click();
         }

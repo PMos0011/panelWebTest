@@ -1,4 +1,4 @@
-package POM.Commodity;
+package POM.Invoice;
 
 public enum TaxRate {
     _23("23"),

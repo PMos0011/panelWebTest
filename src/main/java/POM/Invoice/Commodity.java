@@ -1,10 +1,11 @@
-package POM.Commodity;
+package POM.Invoice;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Commodity {
 
@@ -14,12 +15,20 @@ public class Commodity {
         this.driver = driver;
     }
 
-    public void addEmptyCommodity(){
+    public void addEmptyCommodity() {
         driver.findElement(By.id("addEmptyCommodity")).click();
     }
 
-    public WebElement setInputValue (CommodityInputs input, String value){
-        WebElement element = driver.findElement(By.name(input.getInput()));
+    public void addCommodityFromSelector(WebDriverWait wait, int optionNumber) throws InterruptedException {
+        String xpathString = "//*[contains(@id,'option-" + optionNumber + "')]";
+        WebElement selector = driver.findElement(By.id("commoditySelect"));
+        selector.click();
+        wait.until(e -> selector.findElement(By.xpath(xpathString))).click();
+        driver.findElement(By.id("addFromSelectOption")).click();
+    }
+
+    public WebElement setInputValue(InvoiceInputs input, String value, int rowNumber) {
+        WebElement element = driver.findElements(By.name(input.getInput())).get(rowNumber);
         deleteValueInInput(element);
         element.sendKeys(value);
         mouseClickOnEmpty(driver);
