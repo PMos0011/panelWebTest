@@ -12,7 +12,7 @@ public class ChromeDriverSetup {
     public ChromeDriverSetup(String appUrl) {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         webDriver = new ChromeDriver();
-        webDriverWait = new WebDriverWait(webDriver,2);
+        webDriverWait = new WebDriverWait(webDriver, 2);
         webDriver.get(appUrl);
         webDriver.manage().window().maximize();
     }

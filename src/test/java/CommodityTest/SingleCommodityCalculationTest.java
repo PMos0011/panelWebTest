@@ -49,9 +49,9 @@ public class SingleCommodityCalculationTest {
     public void netPriceChange(String amount, String netPrice, String discount,
                                String grossPrice, String netAmount, String taxAmount, String grossAmount) {
 
-        commodity.setInputValue(InvoiceInputs.AMOUNT, amount,0);
-        commodity.setInputValue(InvoiceInputs.NET_PRICE, netPrice,0);
-        commodity.setInputValue(InvoiceInputs.DISCOUNT, discount,0);
+        commodity.setInputValue(InvoiceInputs.AMOUNT, amount, 0);
+        commodity.setInputValue(InvoiceInputs.NET_PRICE, netPrice, 0);
+        commodity.setInputValue(InvoiceInputs.DISCOUNT, discount, 0);
 
         checkAssertions(grossPrice, netAmount, taxAmount, grossAmount);
 
@@ -65,11 +65,11 @@ public class SingleCommodityCalculationTest {
             "7;0,25;299,99;299.98;1707.23;392.66;2099.89"
     }, delimiter = ';')
     public void grossPriceChange(String amount, String discount, String grsPrice,
-                               String grossPrice, String netAmount, String taxAmount, String grossAmount) {
+                                 String grossPrice, String netAmount, String taxAmount, String grossAmount) {
 
-        commodity.setInputValue(InvoiceInputs.AMOUNT, amount,0);
-        commodity.setInputValue(InvoiceInputs.DISCOUNT, discount,0);
-        commodity.setInputValue(InvoiceInputs.GROSS_PRICE, grsPrice,0);
+        commodity.setInputValue(InvoiceInputs.AMOUNT, amount, 0);
+        commodity.setInputValue(InvoiceInputs.DISCOUNT, discount, 0);
+        commodity.setInputValue(InvoiceInputs.GROSS_PRICE, grsPrice, 0);
 
         checkAssertions(grossPrice, netAmount, taxAmount, grossAmount);
 

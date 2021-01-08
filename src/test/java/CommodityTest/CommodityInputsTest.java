@@ -52,14 +52,14 @@ public class CommodityInputsTest {
     @ParameterizedTest
     @CsvSource(value = {"1;1.00", "3,1;3.10", "5.15;5.15"}, delimiter = ';')
     public void setNetPriceInNewCommodity(String input, String expected) {
-        WebElement netPrice = commodity.setInputValue(InvoiceInputs.NET_PRICE, input,0);
+        WebElement netPrice = commodity.setInputValue(InvoiceInputs.NET_PRICE, input, 0);
         Assertions.assertEquals(expected, netPrice.getAttribute("value"));
     }
 
     @ParameterizedTest
     @CsvSource(value = {"1;1", "3,1;3.1", "5.15;5.15"}, delimiter = ';')
     public void setDiscountInNewCommodity(String input, String expected) {
-        WebElement discount = commodity.setInputValue(InvoiceInputs.DISCOUNT, input,0);
+        WebElement discount = commodity.setInputValue(InvoiceInputs.DISCOUNT, input, 0);
         Assertions.assertEquals(expected, discount.getAttribute("value"));
 
     }

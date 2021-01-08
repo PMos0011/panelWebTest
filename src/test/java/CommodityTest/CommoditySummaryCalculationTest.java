@@ -69,27 +69,27 @@ public class CommoditySummaryCalculationTest {
             "23;88.75;20.41;109.16",
             "8;220.00;17.60;237.60"
     }, delimiter = ';')
-    public void invoiceTaxTable(String taxRate, String taxRateNet, String taxRateSummary, String taxRateGross ) {
+    public void invoiceTaxTable(String taxRate, String taxRateNet, String taxRateSummary, String taxRateGross) {
 
         List<WebElement> elements = driver.findElements(By.name(InvoiceInputs.TAX_RATE.getInput()));
 
-        int taxRateRow = findTaxRateRow(elements,taxRate);
+        int taxRateRow = findTaxRateRow(elements, taxRate);
 
 
         Assertions.assertEquals(taxRateNet,
                 driver.findElements(By.name(InvoiceInputs.TAX_RATE_NET.getInput()))
-                .get(taxRateRow)
-                .getAttribute("value"));
+                        .get(taxRateRow)
+                        .getAttribute("value"));
 
         Assertions.assertEquals(taxRateSummary,
                 driver.findElements(By.name(InvoiceInputs.TAX_RATE_SUMMARY.getInput()))
-                .get(taxRateRow)
-                .getAttribute("value"));
+                        .get(taxRateRow)
+                        .getAttribute("value"));
 
         Assertions.assertEquals(taxRateGross,
                 driver.findElements(By.name(InvoiceInputs.TAX_RATE_GROSS.getInput()))
-                .get(taxRateRow)
-                .getAttribute("value"));
+                        .get(taxRateRow)
+                        .getAttribute("value"));
 
     }
 
@@ -100,11 +100,11 @@ public class CommoditySummaryCalculationTest {
         }
     }
 
-    private int findTaxRateRow(List<WebElement> elements, String value){
+    private int findTaxRateRow(List<WebElement> elements, String value) {
         int row = -1;
 
         for (int i = 0; i < elements.size(); i++) {
-            if(elements.get(i).getAttribute("value").equals(value)) {
+            if (elements.get(i).getAttribute("value").equals(value)) {
                 row = i;
                 break;
             }

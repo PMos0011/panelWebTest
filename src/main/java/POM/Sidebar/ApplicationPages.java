@@ -7,11 +7,11 @@ public enum ApplicationPages {
 
     private final String page;
 
-    ApplicationPages(String page){
-        this.page=page;
+    ApplicationPages(String page) {
+        this.page = page;
     }
 
-    public String getPage(){
+    public String getPage() {
         return page;
     }
 

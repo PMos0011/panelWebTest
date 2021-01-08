@@ -55,7 +55,7 @@ public class CommodityTest {
     }
 
     @Test
-    public void addEmptyCommodity(){
+    public void addEmptyCommodity() {
         goToPage(driver, wait, NEW_INVOICE);
         driver.findElement(By.id("addEmptyCommodity")).click();
 
