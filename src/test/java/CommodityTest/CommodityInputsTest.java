@@ -2,28 +2,31 @@ package CommodityTest;
 
 import DriverSetup.ChromeDriverSetup;
 import POM.Invoice.Commodity;
-import POM.Invoice.InvoiceInputs;
 import POM.Invoice.CommodityMeasures;
+import POM.Invoice.InvoiceInputs;
 import POM.Invoice.TaxRate;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EnumSource;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 
 import static POM.LoginPage.loginIntoApp;
 import static POM.Sidebar.ApplicationPages.NEW_INVOICE;
 import static POM.Sidebar.SidebarModule.goToPage;
 
+@RunWith(JUnitParamsRunner.class)
 public class CommodityInputsTest {
 
     private static WebDriver driver;
     private static Commodity commodity;
 
-    @BeforeAll
+    @BeforeClass
     public static void setupAll() {
         ChromeDriverSetup chromeDriverSetup = new ChromeDriverSetup("http://localhost:3000/");
         driver = chromeDriverSetup.getWebDriver();
@@ -35,38 +38,60 @@ public class CommodityInputsTest {
 
     }
 
-    @AfterAll
+    @AfterClass
     public static void clean() {
         driver.quit();
     }
 
-    @ParameterizedTest
-    @EnumSource(CommodityMeasures.class)
+    private Object[] measureParams(){
+       return CommodityMeasures.values();
+    }
+
+    @Test
+    @Parameters(method = "measureParams")
     public void setMeasureInNewCommodity(CommodityMeasures measure) throws InterruptedException {
         commodity.setMeasure(measure);
         String xpathString = "//*[text() = '" + measure.getMeasure() + "']";
         driver.findElement(By.xpath(xpathString));
     }
 
+    private Object[] netPriceParameters(){
+        return new Object[]{
+                new Object[]{"1","1.00"},
+                new Object[]{"3,1","3.10"},
+                new Object[]{"5.15","5.15"}
+        };
+    }
 
-    @ParameterizedTest
-    @CsvSource(value = {"1;1.00", "3,1;3.10", "5.15;5.15"}, delimiter = ';')
+    @Test
+    @Parameters(method = "netPriceParameters")
     public void setNetPriceInNewCommodity(String input, String expected) {
         WebElement netPrice = commodity.setInputValue(InvoiceInputs.NET_PRICE, input,0);
-        Assertions.assertEquals(expected, netPrice.getAttribute("value"));
+        Assert.assertEquals(expected, netPrice.getAttribute("value"));
     }
 
-    @ParameterizedTest
-    @CsvSource(value = {"1;1", "3,1;3.1", "5.15;5.15"}, delimiter = ';')
+    private Object[]discountParameters(){
+        return new Object[]{
+                new Object[]{"1","1"},
+                new Object[]{"3,1","3.1"},
+                new Object[]{"5.15","5.15"}
+        };
+    }
+
+    @Test
+    @Parameters(method = "discountParameters")
     public void setDiscountInNewCommodity(String input, String expected) {
         WebElement discount = commodity.setInputValue(InvoiceInputs.DISCOUNT, input,0);
-        Assertions.assertEquals(expected, discount.getAttribute("value"));
+        Assert.assertEquals(expected, discount.getAttribute("value"));
 
     }
 
+    private Object[] taxValueParams(){
+        return TaxRate.values();
+    }
 
-    @ParameterizedTest
-    @EnumSource(TaxRate.class)
+    @Test
+    @Parameters(method = "taxValueParams")
     public void setTaxValueInNewCommodity(TaxRate taxRate) throws InterruptedException {
         commodity.setTaxRate(taxRate);
         String xpathString = "//*[text() = '" + taxRate.getTaxRate() + "']";
